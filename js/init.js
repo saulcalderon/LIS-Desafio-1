@@ -4,7 +4,7 @@
     $('.parallax').parallax();
 
     // Custom logic for index page
-    if (window.location.pathname === '/index.html') {
+    if (window.location.pathname === '/LIS-Desafio-1/index.php') {
       // Definicion del usuario en el localStorage
       const user = {
         name: 'Ash Ketchum',
@@ -215,9 +215,6 @@
 
   // Logic for the login page
   $('#btn-login').click(function () {
-    // Logica para validacion del PIN
-    const user = JSON.parse(localStorage.getItem('user'));
-
     const userValue = $('#user-input').val();
     const pinValue = $('#pin').val();
 
@@ -230,14 +227,33 @@
       return;
     }
 
-    if (userValue === user.name && pinValue === user.pin) {
-      swal('Bienvenido', '', 'success').then(() => {
-        window.location.href = 'menu.html';
-      });
-      return;
-    }
-
-    swal('Usuario o PIN incorrecto', 'Por favor inténtelo de nuevo.', 'error');
+    $.ajax({
+      type: 'POST',
+      url: 'login.php',
+      data: {
+        username: userValue,
+        pin: pinValue,
+      },
+      success: function (response) {
+        // Handle the response
+        console.log(response);
+        swal('Bienvenido', '', 'success').then(() => {
+          window.location.href = '/LIS-Desafio-1/menu.php';
+        });
+        return;
+      },
+      error: function (xhr, status, error) {
+        // Handle the error response
+        swal(
+          'Usuario o PIN incorrecto',
+          'Por favor inténtelo de nuevo.',
+          'error'
+        );
+        console.log(error);
+        console.log(status);
+        console.log(xhr);
+      },
+    });
   });
 
   // Button configuration for deposit and withdraw pages

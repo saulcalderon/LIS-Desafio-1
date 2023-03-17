@@ -40,4 +40,15 @@ class User
             return false;
         }
     }
+
+    public function loginUser($username, $pin)
+    {
+        $query = "SELECT * FROM users WHERE name = ? AND pin = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $username);
+        $stmt->bindParam(2, $pin);
+        $stmt->execute();
+
+        return $stmt;
+    }
 }
