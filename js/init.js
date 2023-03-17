@@ -21,7 +21,7 @@
     if (localStorage.getItem('user')) {
       const user = JSON.parse(localStorage.getItem('user'));
       $('.bienvenida').text(`Bienvenido/a ${user.name}`);
-      $('.no-cuenta').text(`Nº cuenta: ${user.noAccount}`);
+      // $('.no-cuenta').text(`Nº cuenta: ${user.noAccount}`);
       $('.balance-general').text(`Balance general: $${user.balance}`);
     }
 
@@ -210,7 +210,7 @@
   // information about the user
   const user = JSON.parse(localStorage.getItem('user'));
   $('#name').text(user.name);
-  $('.no-cuenta').text(user.noAccount);
+  // $('.no-cuenta').text(user.noAccount);
   $('.balance-general').text(user.balance);
 
   // Logic for the login page
@@ -229,7 +229,7 @@
 
     $.ajax({
       type: 'POST',
-      url: 'login.php',
+      url: 'controllers/login.php',
       data: {
         username: userValue,
         pin: pinValue,
@@ -255,6 +255,25 @@
       },
     });
   });
+
+  // Logic for logout button
+  $('.logout').click(function (event) {
+    event.preventDefault();
+
+    $.ajax({
+      type: 'POST',
+      url: 'controllers/logout.php',
+      success: function (response) {
+        // Handle the response
+        console.log(response);
+        swal('Hasta Luego', '', 'success').then(() => {
+          window.location.href = '/LIS-Desafio-1/index.php';
+        });
+        return;
+      }
+    });
+  });
+
 
   // Button configuration for deposit and withdraw pages
   $('#btn-add-25').click(function () {
@@ -305,7 +324,7 @@
     evt = evt || window.event;
     const charCode = evt.which || evt.keyCode;
     const charStr = String.fromCharCode(charCode);
-    if (charStr === '-') return false;
+    // if (charStr === '-') return false;
     if (charStr === 'e') return false;
     if (charStr === 'E') return false;
   }

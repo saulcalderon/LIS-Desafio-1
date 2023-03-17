@@ -4,8 +4,8 @@ session_start();
 
 // check if user is already logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
-    exit;
+  header("Location: index.php");
+  exit;
 }
 ?>
 
@@ -29,9 +29,9 @@ if (!isset($_SESSION['user_id'])) {
       <ul class="left hide-on-med-and-down">
         <li><a>Fecha: 10/10/10</a></li>
       </ul>
-      <a id="logo-container" href="#" class="brand-logo center">Pokemon Bank</a>
+      <a id="logo-container" href="#" class="brand-logo center">Mis Finanzas</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="index.html"><i class="material-icons">exit_to_app</i></a></li>
+        <li><a class="logout"><i class="material-icons">exit_to_app</i></a></li>
       </ul>
     </div>
   </nav>
@@ -50,10 +50,7 @@ if (!isset($_SESSION['user_id'])) {
         <h1 class="center">Menú</h1>
         <h3 class="center bienvenida"></h3>
         <div class="row">
-          <div class="col s12 m6">
-            <h5 class="center no-cuenta"></h5>
-          </div>
-          <div class="col s12 m6">
+          <div class="col s12">
             <h5 class="center balance-general"></h5>
           </div>
         </div>
@@ -61,13 +58,13 @@ if (!isset($_SESSION['user_id'])) {
         <h3 class="center">Elija un servicio</h3>
         <div class="row">
           <div class="col s12 m6">
-            <a class="btn-menu waves-effect waves-light btn-large" href="deposit.html">Depositar dinero</a>
+            <a class="btn-menu waves-effect waves-light btn-large" href="deposit.html">Registrar entrada</a>
           </div>
           <div class="col s12 m6">
             <a class="btn-menu waves-effect waves-light btn-large" href="transactions.html">Consultar transacciones</a>
           </div>
           <div class="col s12 m6">
-            <a class="btn-menu waves-effect waves-light btn-large" href="withdraw.html">Retirar dinero</a>
+            <a class="btn-menu waves-effect waves-light btn-large" href="withdraw.html">Registrar salida</a>
           </div>
           <div class="col s12 m6">
             <a class="btn-menu waves-effect waves-light btn-large" href="services.html">Pago de servicios</a>
@@ -75,7 +72,7 @@ if (!isset($_SESSION['user_id'])) {
         </div>
       </div>
     </div>
-    <div class="parallax"><img id="bc-image" src="background3.jpg" alt=""></div>
+    <div class="parallax"><img id="bc-image" src="background4.jpg" alt=""></div>
   </div>
 
   <footer class="page-footer teal">
@@ -89,6 +86,7 @@ if (!isset($_SESSION['user_id'])) {
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
 

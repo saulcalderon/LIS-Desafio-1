@@ -3,8 +3,8 @@
 session_start();
 
 // Include the necessary files
-require_once 'config/database.php';
-require_once 'models/user.model.php';
+require_once '../config/database.php';
+require_once '../models/user.model.php';
 
 // Initialize the database connection
 $database = new Database();
