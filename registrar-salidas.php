@@ -54,7 +54,7 @@
           </div>
           <div class="row">
             <div class="col m6 offset-m3">
-              <a id="btn-transaction" class="btn-menu waves-effect waves-light btn-large">Agregar entrada</a>
+              <a id="btn-transaction" class="btn-menu waves-effect waves-light btn-large">Agregar salida</a>
             </div>
           </div>
         </div>
