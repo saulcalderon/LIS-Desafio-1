@@ -45,7 +45,6 @@ if (!isset($_SESSION['user_id'])) {
         <br /><br />
         <h4 class="center">Ingrese los datos solicitados para agregar una entrada</h4>
         <div class="row" style="margin-top: 50px; background-color: gray; padding: 20px;">
-
           <div class="input-field col m6 offset-m3">
             <input id="type" type="text" class="validate inputs">
             <label class="white-text" for="last_name">Tipo</label>
@@ -66,7 +65,7 @@ if (!isset($_SESSION['user_id'])) {
           </div>
           <div class="row">
             <div class="col m6 offset-m3">
-              <a id="btn-income" class="btn-menu waves-effect waves-light btn-large">Agregar entrada</a>
+              <a id="btn-transaction" class="btn-menu waves-effect waves-light btn-large">Agregar entrada</a>
             </div>
           </div>
         </div>

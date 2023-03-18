@@ -131,49 +131,49 @@
     }
   }); // end of document ready
 
-  $('#money-input').on('input', function () {
-    // Get the current value of the input field
-    var value = $(this).val();
-
-    // Remove any non-numeric characters except the minus sign and dot
-    value = value.replace(/[^0-9\-\.]|(?<=\..*)\./g, '');
-
-    // Replace any double dots with a single dot
-    value = value.replace(/(\..*)\./g, '$1');
-
-    // Remove any dots before the first digit
-    value = value.replace(/^\./g, '');
-
-    // Allow only one minus sign at the beginning of the input
-    if (
-      value.indexOf('-') > 0 ||
-      (value.indexOf('-') == 0 && !/^\-?[0-9]*\.?[0-9]*$/.test(value))
-    ) {
-      value = value.replace('-', '');
-    }
-    value = value.replace(/^(\-?)[^0-9]*$/, '$1');
-
-    // Remove the minus sign if the input value is positive
-    if (parseFloat(value) >= 0) {
-      value = value.replace('-', '');
-    }
-
-    // Limit the integer part to 10 digits
-    var parts = value.split('.');
-    if (parts[0].length > 10) {
-      parts[0] = parts[0].substring(0, 10);
-      value = parts.join('.');
-    }
-
-    // Limit the decimal part to two digits
-    if (parts.length > 1) {
-      parts[1] = parts[1].substring(0, 2);
-      value = parts.join('.');
-    }
-
-    // Update the input field with the sanitized value
-    $(this).val(value);
-  });
+  $('#money-input').on('input', function() {
+      // Get the current value of the input field
+      let value = $(this).val();
+      
+      // Determine if we're on the "income" or "outcome" page
+      const isIncomePage =
+        window.location.pathname ===
+        '/LIS-Desafio-1/registrar-entradas.php';
+      
+      // Remove any non-numeric characters except the dot
+      value = value.replace(/[^0-9\.]|(?<=\..*)\./g, '');
+      
+      // Replace any double dots with a single dot
+      value = value.replace(/(\..*)\./g, '$1');
+      
+      // Remove any dots before the first digit
+      value = value.replace(/^\./g, '');
+      
+      // Limit the integer part to 10 digits
+      let parts = value.split('.');
+      if (parts[0].length > 10) {
+        parts[0] = parts[0].substring(0, 10);
+        value = parts.join('.');
+      }
+      
+      // Limit the decimal part to two digits
+      if (parts.length > 1) {
+        parts[1] = parts[1].substring(0, 2);
+        value = parts.join('.');
+      }
+      
+      // Add or remove the minus sign depending on the page
+      if (!isIncomePage) {
+        if (value.charAt(0) !== '-') {
+          value = '-' + value;
+        }
+      } else {
+        value = value.replace('-', '');
+      }
+      
+      // Update the input field with the sanitized value
+      $(this).val(value);
+    });
 
   // Funcion para imprimir transacciones de deposito
   function orderAndPrintTransactions(transactions) {
@@ -305,7 +305,7 @@
   });
 
   // Logic for the income button
-  $('#btn-income').click(function () {
+  $('#btn-transaction').click(function () {
     let depositMoneyInput = $('#money-input').val();
     let typeInput = $('#type').val();
     let selectTypeInput = $('#select-type').val();
@@ -337,6 +337,16 @@
 
     console.log(data);
 
+    const pageLocationMessage = null;
+     const isIncomePage =
+       window.location.pathname === '/LIS-Desafio-1/registrar-entradas.php';
+
+    if (isIncomePage) {
+      pageLocationMessage = 'Entrada';
+    } else {
+      pageLocationMessage = 'Salida';
+    }
+
     $.ajax({
       type: 'POST',
       url: 'controllers/transaction.php',
@@ -346,8 +356,8 @@
         console.log(response);
 
         swal(
-          'Entrada guardada exitosamente',
-          `La entrada por la cantidad de $${depositMoneyInput} fue exitosa.`,
+          `${pageLocationMessage} guardada exitosamente`,
+          `La ${pageLocationMessage} por la cantidad de $${depositMoneyInput} fue exitosa.`,
           'success'
         ).then(() => {
           window.location.href = '/LIS-Desafio-1/menu.php';
@@ -357,7 +367,7 @@
       error: function (xhr, status, error) {
         // Handle the error response
         swal(
-          'Error al guardar la entrada',
+          `Error al guardar la ${pageLocationMessage}`,
           'Por favor inténtelo de nuevo.',
           'error'
         );
