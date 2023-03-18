@@ -2,11 +2,9 @@
 
 session_start();
 
-// Include the necessary files
 require_once '../config/database.php';
 require_once '../models/user.model.php';
 
-// Initialize the database connection
 $database = new Database();
 $conn = $database->getConnection();
 
@@ -19,9 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $pin = $_POST['pin'];
 
-    // Check if the username and pin are not empty, if they are, return a http 400 error
+    // Check if the username and pin are not empty
     if (empty($username) || empty($pin)) {
-        // if ($username == 'test' || empty($pin)) {
         http_response_code(400);
         $error = array('error' => 'Usuario o pin vacios');
         header('Content-Type: application/json');
@@ -29,10 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    // Call the login user method on the User object
     $stmt = $user->loginUser($username, $pin);
 
-    // Check if the user exists
     if ($stmt->rowCount() > 0) {
         // Get the user data
         $user_obj = array();

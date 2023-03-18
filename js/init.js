@@ -339,7 +339,7 @@
 
     $.ajax({
       type: 'POST',
-      url: 'controllers/income.php',
+      url: 'controllers/transaction.php',
       data,
       success: function (response) {
         // Handle the response
