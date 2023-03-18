@@ -56,7 +56,7 @@ if (!isset($_SESSION['user_id'])) {
             <a class="btn-menu waves-effect waves-light btn-large" href="registrar-entradas.php">Registrar entrada</a>
           </div>
           <div class="col s12 m6">
-            <a class="btn-menu waves-effect waves-light btn-large" href="transactions.html">Ver entradas</a>
+            <a class="btn-menu waves-effect waves-light btn-large" href="ver-entradas.php">Ver entradas</a>
           </div>
           <div class="col s12 m6">
             <a class="btn-menu waves-effect waves-light btn-large" href="registrar-salidas.php">Registrar salida</a>
