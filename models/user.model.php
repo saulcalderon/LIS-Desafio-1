@@ -17,30 +17,6 @@ class User
         return $stmt;
     }
 
-    public function getUserById($id)
-    {
-        $query = "SELECT * FROM users WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-
-        return $stmt;
-    }
-
-    public function createUser($name, $email)
-    {
-        $query = "INSERT INTO users SET name = :name, email = :email";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":name", $name);
-        $stmt->bindParam(":email", $email);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function loginUser($username, $pin)
     {
         $query = "SELECT * FROM users WHERE username = ? AND pin = ?";
