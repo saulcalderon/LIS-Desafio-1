@@ -12,8 +12,8 @@ CREATE TABLE users (
 INSERT INTO
     users (username, first_name, last_name, pin)
 VALUES
-    ('john_doe', 'John', 'Doe', 1234),
-    ('jane_smith', 'Jane', 'Smith', 5678),
-    ('bob_johnson', 'Bob', 'Johnson', 9876),
-    ('amy_wang', 'Amy', 'Wang', 2468),
-    ('michael_chen', 'Michael', 'Chen', 1357);
+    ('johndoe', 'John', 'Doe', 1234),
+    ('janesmith', 'Jane', 'Smith', 5678),
+    ('bobjohnson', 'Bob', 'Johnson', 9876),
+    ('amywang', 'Amy', 'Wang', 2468),
+    ('michaelchen', 'Michael', 'Chen', 1357);

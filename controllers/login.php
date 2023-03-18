@@ -39,10 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Set the user data in the session
         $_SESSION['user_id'] = $row['id'];
-        $_SESSION['user_name'] = $row['name'];
+        $_SESSION['user_name'] = $row['username'];
 
         http_response_code(200);
-        $success = array('success' => 'Usuario ' . $row['name'] . ' logueado');
+        $success = array('success' => 'Usuario ' . $row['username'] . ' logueado');
         header('Content-Type: application/json');
         echo json_encode($success);
         exit;

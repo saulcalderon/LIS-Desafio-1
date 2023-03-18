@@ -43,7 +43,7 @@ class User
 
     public function loginUser($username, $pin)
     {
-        $query = "SELECT * FROM users WHERE name = ? AND pin = ?";
+        $query = "SELECT * FROM users WHERE username = ? AND pin = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $username);
         $stmt->bindParam(2, $pin);
