@@ -35,16 +35,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if the user exists
     if ($stmt->rowCount() > 0) {
         // Get the user data
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user_obj = array();
+        while ($obj = $stmt->fetch(PDO::FETCH_OBJ)) {
+            // Set the user data in the session
+            $_SESSION['user_id'] =  $obj->id;
+            $_SESSION['user_name'] = $obj->username;
 
-        // Set the user data in the session
-        $_SESSION['user_id'] = $row['id'];
-        $_SESSION['user_name'] = $row['username'];
+            $user_obj[] = array(
+                'id' => $obj->id,
+                'username' => $obj->username,
+                'firstName' => $obj->first_name,
+                'lastName' => $obj->last_name,
+            );
+        }
 
         http_response_code(200);
-        $success = array('success' => 'Usuario ' . $row['username'] . ' logueado');
         header('Content-Type: application/json');
-        echo json_encode($success);
+        echo json_encode($user_obj[0]);
         exit;
     } else {
         http_response_code(400);

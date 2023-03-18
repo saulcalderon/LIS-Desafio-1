@@ -3,26 +3,11 @@
     $('.sidenav').sidenav();
     $('.parallax').parallax();
 
-    // Custom logic for index page
-    if (window.location.pathname === '/LIS-Desafio-1/index.php') {
-      // Definicion del usuario en el localStorage
-      const user = {
-        name: 'Ash Ketchum',
-        pin: '1234',
-        noAccount: '0987654321',
-        balance: 500.0,
-        transactions: [],
-      };
-
-      localStorage.setItem('user', JSON.stringify(user));
-    }
 
     // Impresion de los datos del usuario en el DOM
     if (localStorage.getItem('user')) {
       const user = JSON.parse(localStorage.getItem('user'));
-      $('.bienvenida').text(`Bienvenido/a ${user.name}`);
-      // $('.no-cuenta').text(`Nº cuenta: ${user.noAccount}`);
-      $('.balance-general').text(`Balance general: $${user.balance}`);
+      $('.bienvenida').text(`Bienvenido/a ${user.firstName} ${user.lastName}`);
     }
 
     // Custom logic for transactions page
@@ -231,12 +216,16 @@
       type: 'POST',
       url: 'controllers/login.php',
       data: {
-        username: userValue,
-        pin: pinValue,
+        username: userValue.trim(),
+        pin: pinValue.trim(),
       },
       success: function (response) {
         // Handle the response
         console.log(response);
+
+        // Save the user in local storage
+        localStorage.setItem('user', JSON.stringify(response));
+
         swal('Bienvenido', '', 'success').then(() => {
           window.location.href = '/LIS-Desafio-1/menu.php';
         });

@@ -49,11 +49,6 @@ if (!isset($_SESSION['user_id'])) {
         <br><br>
         <h1 class="center">Menú</h1>
         <h3 class="center bienvenida"></h3>
-        <div class="row">
-          <div class="col s12">
-            <h5 class="center balance-general"></h5>
-          </div>
-        </div>
         <br><br>
         <h3 class="center">Elija un servicio</h3>
         <div class="row">
@@ -61,13 +56,16 @@ if (!isset($_SESSION['user_id'])) {
             <a class="btn-menu waves-effect waves-light btn-large" href="deposit.html">Registrar entrada</a>
           </div>
           <div class="col s12 m6">
-            <a class="btn-menu waves-effect waves-light btn-large" href="transactions.html">Consultar transacciones</a>
+            <a class="btn-menu waves-effect waves-light btn-large" href="transactions.html">Ver entradas</a>
           </div>
           <div class="col s12 m6">
             <a class="btn-menu waves-effect waves-light btn-large" href="withdraw.html">Registrar salida</a>
           </div>
           <div class="col s12 m6">
-            <a class="btn-menu waves-effect waves-light btn-large" href="services.html">Pago de servicios</a>
+            <a class="btn-menu waves-effect waves-light btn-large" href="services.html">Ver salidas</a>
+          </div>
+          <div class="col m6 offset-m3">
+            <a class="btn-menu waves-effect waves-light btn-large" href="services.html">Mostrar balance</a>
           </div>
         </div>
       </div>
