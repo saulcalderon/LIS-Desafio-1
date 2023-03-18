@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pokemon Bank</title>
+    <title>Mis Finanzas</title>
 
     <!-- CSS  -->
     <link
@@ -31,7 +31,7 @@
           <li><a>Fecha: 10/10/10</a></li>
         </ul>
         <a id="logo-container" href="#" class="brand-logo center"
-          >Pokemon Bank</a
+          >Mis Finanzas</a
         >
         <ul class="right hide-on-med-and-down">
           <li>
@@ -115,15 +115,15 @@
         </div>
       </div>
       <div class="parallax">
-        <img id="bc-image" src="pikachu-wallpaper.jpeg" alt="" />
+        <img id="bc-image" src="background4.jpg" alt="" />
       </div>
     </div>
 
     <footer class="page-footer teal">
       <div class="footer-copyright">
         <div class="container">
-          <a class="brown-text text-lighten-3">Pokemon Bank ©</a> Copyright 2022
-          - LIC
+          <a class="brown-text text-lighten-3">Mis Finanzas ©</a> Copyright 2022
+          - LIS
         </div>
       </div>
     </footer>
