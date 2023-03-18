@@ -83,3 +83,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['type'] == 'income') {
+
+    // get the user id from the session
+    $user_id = $_SESSION['user_id'];
+
+    // call the get transactions method on the Transaction object
+    $stmt = $transaction->getIncomeRecordsByUserId($user_id);
+
+    // create a custom array to serialize the data
+    $transactions = array();
+
+    foreach ($stmt as $row) {
+        $transactions[] = array(
+            'id' => $row['id'],
+            'transactionType' => $row['transaction_type'],
+            'type' => $row['type'],
+            'amount' => $row['amount'],
+            'date' => $row['transaction_date']
+        );
+    }
+
+    if (!empty($transactions)) {
+        http_response_code(200);
+        header('Content-Type: application/json');
+        echo json_encode($transactions);
+        exit;
+    } else {
+        http_response_code(400);
+        $error = array('error' => 'No se encontraron registros');
+        header('Content-Type: application/json');
+        echo json_encode($error);
+        exit;
+    }
+}

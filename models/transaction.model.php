@@ -17,13 +17,19 @@ class Transaction
         return $stmt->rowCount();
     }
 
-    function getTransactionsByUserId($user_id)
+    function getIncomeRecordsByUserId($user_id)
     {
-        $sql = "SELECT * FROM transactions WHERE user_id = ?";
+        $sql = "SELECT * FROM transactions WHERE user_id = ? AND transaction_type = 'entrada' ORDER BY transaction_date DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$user_id]);
+        return $stmt->fetchAll();
+    }
+
+    function getExpensesRecordsByUserId($user_id)
+    {
+        $sql = "SELECT * FROM transactions WHERE user_id = ? AND transaction_type = 'salida' ORDER BY transaction_date DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$user_id]);
         return $stmt->fetchAll();
     }
 }
-
-?>

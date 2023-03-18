@@ -14,212 +14,191 @@
     }
 
     // Custom logic for transactions page
-    if (window.location.pathname === '/transactions.html') {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const transactions = user.transactions;
+    if (window.location.pathname === '/LIS-Desafio-1/ver-entradas.php') {
+      // const user = JSON.parse(localStorage.getItem('user'));
+      // const transactions = user.transactions;
 
-      // Bar chart for different types of services
-      let sumaDineroServiciosDeAgua = 0;
-      let sumaDineroServiciosDeLuz = 0;
-      let sumaDineroServiciosDeInternet = 0;
+      // // Bar chart for different types of services
+      // let sumaDineroServiciosDeAgua = 0;
+      // let sumaDineroServiciosDeLuz = 0;
+      // let sumaDineroServiciosDeInternet = 0;
 
-      // Collecting data for the bar chart
-      transactions.forEach((transaction) => {
-        if (transaction.type === 'service') {
-          if (transaction.category === 'agua') {
-            sumaDineroServiciosDeAgua += transaction.amount;
-          }
+      // // Collecting data for the bar chart
+      // transactions.forEach((transaction) => {
+      //   if (transaction.type === 'service') {
+      //     if (transaction.category === 'agua') {
+      //       sumaDineroServiciosDeAgua += transaction.amount;
+      //     }
 
-          if (transaction.category === 'luz') {
-            sumaDineroServiciosDeLuz += transaction.amount;
-          }
+      //     if (transaction.category === 'luz') {
+      //       sumaDineroServiciosDeLuz += transaction.amount;
+      //     }
 
-          if (transaction.category === 'internet') {
-            sumaDineroServiciosDeInternet += transaction.amount;
-          }
-        }
-      });
+      //     if (transaction.category === 'internet') {
+      //       sumaDineroServiciosDeInternet += transaction.amount;
+      //     }
+      //   }
+      // });
 
-      // Creating the bar chart
-      const ctx = document.getElementById('myChart').getContext('2d');
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: [
-            'Servicio de Luz',
-            'Servicio de Agua',
-            'Servicio de Internet',
-          ],
-          datasets: [
-            {
-              label: 'Total de gastos en servicios',
-              data: [
-                sumaDineroServiciosDeLuz,
-                sumaDineroServiciosDeAgua,
-                sumaDineroServiciosDeInternet,
-              ],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-              ],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
+      // // Creating the bar chart
+      // const ctx = document.getElementById('myChart').getContext('2d');
+      // new Chart(ctx, {
+      //   type: 'bar',
+      //   data: {
+      //     labels: [
+      //       'Servicio de Luz',
+      //       'Servicio de Agua',
+      //       'Servicio de Internet',
+      //     ],
+      //     datasets: [
+      //       {
+      //         label: 'Total de gastos en servicios',
+      //         data: [
+      //           sumaDineroServiciosDeLuz,
+      //           sumaDineroServiciosDeAgua,
+      //           sumaDineroServiciosDeInternet,
+      //         ],
+      //         backgroundColor: [
+      //           'rgba(255, 99, 132, 0.2)',
+      //           'rgba(54, 162, 235, 0.2)',
+      //           'rgba(255, 206, 86, 0.2)',
+      //         ],
+      //         borderColor: [
+      //           'rgba(255, 99, 132, 1)',
+      //           'rgba(54, 162, 235, 1)',
+      //           'rgba(255, 206, 86, 1)',
+      //         ],
+      //         borderWidth: 1,
+      //       },
+      //     ],
+      //   },
+      //   options: {
+      //     scales: {
+      //       y: {
+      //         beginAtZero: true,
+      //       },
+      //     },
+      //   },
+      // });
 
-      // Pie chart for different transaction types
-      let sumaDineroDepositos = 0;
-      let sumaDineroRetiros = 0;
-      let sumaDineroServicios = 0;
+      // // Pie chart for different transaction types
+      // let sumaDineroDepositos = 0;
+      // let sumaDineroRetiros = 0;
+      // let sumaDineroServicios = 0;
 
-      // Collecting data for the pie chart
-      transactions.forEach((transaction) => {
-        if (transaction.type === 'deposit') {
-          sumaDineroDepositos += transaction.amount;
-        }
+      // // Collecting data for the pie chart
+      // transactions.forEach((transaction) => {
+      //   if (transaction.type === 'deposit') {
+      //     sumaDineroDepositos += transaction.amount;
+      //   }
 
-        if (transaction.type === 'withdraw') {
-          sumaDineroRetiros += transaction.amount;
-        }
+      //   if (transaction.type === 'withdraw') {
+      //     sumaDineroRetiros += transaction.amount;
+      //   }
 
-        if (transaction.type === 'service') {
-          sumaDineroServicios += transaction.amount;
-        }
-      });
+      //   if (transaction.type === 'service') {
+      //     sumaDineroServicios += transaction.amount;
+      //   }
+      // });
 
-      // Creating the pie chart
-      const ctx2 = document.getElementById('myChart2').getContext('2d');
-      new Chart(ctx2, {
-        type: 'pie',
-        data: {
-          labels: ['Depósitos', 'Retiros', 'Servicios'],
-          datasets: [
-            {
-              label: 'Total de transacciones en USD',
-              data: [
-                sumaDineroDepositos,
-                sumaDineroRetiros,
-                sumaDineroServicios,
-              ],
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-              ],
-              hoverOffset: 4,
-            },
-          ],
-        },
-      });
+      // // Creating the pie chart
+      // const ctx2 = document.getElementById('myChart2').getContext('2d');
+      // new Chart(ctx2, {
+      //   type: 'pie',
+      //   data: {
+      //     labels: ['Depósitos', 'Retiros', 'Servicios'],
+      //     datasets: [
+      //       {
+      //         label: 'Total de transacciones en USD',
+      //         data: [
+      //           sumaDineroDepositos,
+      //           sumaDineroRetiros,
+      //           sumaDineroServicios,
+      //         ],
+      //         backgroundColor: [
+      //           'rgb(255, 99, 132)',
+      //           'rgb(54, 162, 235)',
+      //           'rgb(255, 205, 86)',
+      //         ],
+      //         hoverOffset: 4,
+      //       },
+      //     ],
+      //   },
+      // });
 
       // Creating the table with the transactions
-      orderAndPrintTransactions(transactions);
+      getIncomeTransactions();
     }
   }); // end of document ready
 
-  $('#money-input').on('input', function() {
-      // Get the current value of the input field
-      let value = $(this).val();
-      
-      // Determine if we're on the "income" or "outcome" page
-      const isIncomePage =
-        window.location.pathname ===
-        '/LIS-Desafio-1/registrar-entradas.php';
-      
-      // Remove any non-numeric characters except the dot
-      value = value.replace(/[^0-9\.]|(?<=\..*)\./g, '');
-      
-      // Replace any double dots with a single dot
-      value = value.replace(/(\..*)\./g, '$1');
-      
-      // Remove any dots before the first digit
-      value = value.replace(/^\./g, '');
-      
-      // Limit the integer part to 10 digits
-      let parts = value.split('.');
-      if (parts[0].length > 10) {
-        parts[0] = parts[0].substring(0, 10);
-        value = parts.join('.');
+  $('#money-input').on('input', function () {
+    // Get the current value of the input field
+    let value = $(this).val();
+
+    // Determine if we're on the "income" or "outcome" page
+    const isIncomePage =
+      window.location.pathname === '/LIS-Desafio-1/registrar-entradas.php';
+
+    // Remove any non-numeric characters except the dot
+    value = value.replace(/[^0-9\.]|(?<=\..*)\./g, '');
+
+    // Replace any double dots with a single dot
+    value = value.replace(/(\..*)\./g, '$1');
+
+    // Remove any dots before the first digit
+    value = value.replace(/^\./g, '');
+
+    // Limit the integer part to 10 digits
+    let parts = value.split('.');
+    if (parts[0].length > 10) {
+      parts[0] = parts[0].substring(0, 10);
+      value = parts.join('.');
+    }
+
+    // Limit the decimal part to two digits
+    if (parts.length > 1) {
+      parts[1] = parts[1].substring(0, 2);
+      value = parts.join('.');
+    }
+
+    // Add or remove the minus sign depending on the page
+    if (!isIncomePage) {
+      if (value.charAt(0) !== '-') {
+        value = '-' + value;
       }
-      
-      // Limit the decimal part to two digits
-      if (parts.length > 1) {
-        parts[1] = parts[1].substring(0, 2);
-        value = parts.join('.');
-      }
-      
-      // Add or remove the minus sign depending on the page
-      if (!isIncomePage) {
-        if (value.charAt(0) !== '-') {
-          value = '-' + value;
+    } else {
+      value = value.replace('-', '');
+    }
+
+    // Update the input field with the sanitized value
+    $(this).val(value);
+  });
+
+  function getIncomeTransactions() {
+    // Get the transactions from the database
+    $.ajax({
+      url: 'controllers/transaction.php?type=income',
+      type: 'GET',
+      success: function (response) {
+        console.log(response);
+        for (const transaction of response) {
+          printIncomeTransaction(transaction.type, transaction.date, transaction.amount);
         }
-      } else {
-        value = value.replace('-', '');
-      }
-      
-      // Update the input field with the sanitized value
-      $(this).val(value);
-    });
-
-  // Funcion para imprimir transacciones de deposito
-  function orderAndPrintTransactions(transactions) {
-    const reverseTransactions = transactions.reverse();
-
-    reverseTransactions.forEach((transaction) => {
-      if (transaction.type === 'deposit') {
-        printDepositTransaction(transaction.date, transaction.amount);
-      }
-
-      if (transaction.type === 'withdraw') {
-        printWithdrawTransaction(transaction.date, transaction.amount);
-      }
-
-      if (transaction.type === 'service') {
-        printServiceTransaction(
-          transaction.category,
-          transaction.date,
-          transaction.amount
-        );
-      }
+      },
+      error: function (error) {
+        console.log(error);
+      },
     });
   }
-  // Function to get date in a readable format
-  function getDateHoursAndMinutes(dateString) {
-    const date = new Date(dateString);
-    let pm = date.getHours() >= 12;
-    let hour12 = date.getHours() % 12;
-    if (!hour12) hour12 += 12;
-    let minute = date.getMinutes();
 
-    return (
-      date.toISOString().split('T')[0] +
-      ' - ' +
-      `${hour12}:${minute} ${pm ? 'pm' : 'am'}`
-    );
-  }
-  // Funcion para imprimir transacciones de deposito
-  function printDepositTransaction(date, amount) {
+  // Funcion para imprimir transacciones de entrada
+  function printIncomeTransaction(type, date, amount) {
     $('#transactions').append(`<li class="collection-item avatar">
            <i class="material-icons circle green">add</i>
-           <span class="title black-text">Depósito | ${getDateHoursAndMinutes(
-             date
-           )} | $${amount}</span>
+           <span class="title black-text" style="word-spacing:1em;">${type}  |  ${date}  |  $${amount}</span>
          </li>`);
   }
+
   // Funcion para imprimir transacciones de retiro
   function printWithdrawTransaction(date, amount) {
     $('#transactions').append(`<li class="collection-item avatar">
@@ -304,7 +283,7 @@
     });
   });
 
-  // Logic for the income button
+  // Logic for the transaction button
   $('#btn-transaction').click(function () {
     let depositMoneyInput = $('#money-input').val();
     let typeInput = $('#type').val();
@@ -338,8 +317,8 @@
     console.log(data);
 
     const pageLocationMessage = null;
-     const isIncomePage =
-       window.location.pathname === '/LIS-Desafio-1/registrar-entradas.php';
+    const isIncomePage =
+      window.location.pathname === '/LIS-Desafio-1/registrar-entradas.php';
 
     if (isIncomePage) {
       pageLocationMessage = 'Entrada';
@@ -375,58 +354,6 @@
         console.log(status);
         console.log(xhr);
       },
-    });
-  });
-
-  // Logic for the withdraw button in withdraw.html
-  $('#btn-withdraw').click(function () {
-    let withdrawMoneyInput = $('#withdraw-money-input').val();
-    if (!withdrawMoneyInput) {
-      swal(
-        'Campo vacío',
-        'El campo del monto a retirar esta vacío, por favor inténtelo de nuevo.',
-        'warning'
-      );
-      return;
-    }
-
-    withdrawMoneyInput = parseFloat(withdrawMoneyInput).toFixed(2);
-
-    // Getting the user from local storage
-    const user = JSON.parse(localStorage.getItem('user'));
-    // Updating the user balance and saving it
-    const newBalance =
-      parseFloat(user.balance) - parseFloat(withdrawMoneyInput);
-    if (newBalance < 0) {
-      swal(
-        'Saldo insuficiente',
-        'No tiene suficiente saldo para realizar esta operación.',
-        'error'
-      );
-      return;
-    }
-
-    user.balance = newBalance;
-    const transactionDate = new Date();
-    user.transactions.push({
-      type: 'withdraw',
-      amount: parseFloat(withdrawMoneyInput),
-      date: transactionDate,
-    });
-    localStorage.setItem('user', JSON.stringify(user));
-
-    swal(
-      'Retiro exitoso',
-      `El retiro por la cantidad de $${withdrawMoneyInput} fue exitoso.`,
-      'success'
-    ).then(() => {
-      generateWithdrawPDF(
-        user,
-        withdrawMoneyInput,
-        newBalance,
-        transactionDate
-      );
-      window.location.href = 'menu.html';
     });
   });
 
