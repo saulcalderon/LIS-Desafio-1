@@ -1,6 +1,8 @@
-CREATE TABLE user (
+CREATE TABLE users (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
     pin INT(4) NOT NULL CHECK (
         pin BETWEEN 0
         AND 9999
@@ -8,10 +10,10 @@ CREATE TABLE user (
 );
 
 INSERT INTO
-    user (name, pin)
+    users (username, first_name, last_name, pin)
 VALUES
-    ('Alice', 1234),
-    ('Bob', 5678),
-    ('Charlie', 2468),
-    ('David', 1357),
-    ('Eve', 9876);
+    ('john_doe', 'John', 'Doe', 1234),
+    ('jane_smith', 'Jane', 'Smith', 5678),
+    ('bob_johnson', 'Bob', 'Johnson', 9876),
+    ('amy_wang', 'Amy', 'Wang', 2468),
+    ('michael_chen', 'Michael', 'Chen', 1357);

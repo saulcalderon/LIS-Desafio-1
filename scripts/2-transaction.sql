@@ -13,7 +13,7 @@ ALTER TABLE
 ADD
     FOREIGN KEY (user_id) REFERENCES users(id);
 
-INSERT INTO transaction (user_id, transaction_type, type, amount, transaction_date, receipt_photo_path)
+INSERT INTO transactions (user_id, transaction_type, type, amount, transaction_date, receipt_photo_path)
 VALUES
 (1, 'entrada', 'Ingreso mensual', 2500.00, '2022-03-01', '/path/to/receipt1.jpg'),
 (1, 'salida', 'Alquiler', -800.00, '2022-03-05', '/path/to/receipt2.jpg'),
