@@ -2,7 +2,10 @@
   $(function () {
     $('.sidenav').sidenav();
     $('.parallax').parallax();
-
+    $('select').formSelect();
+    $('.datepicker').datepicker({
+      format: 'yyyy-mm-dd',
+    });
 
     // Impresion de los datos del usuario en el DOM
     if (localStorage.getItem('user')) {
@@ -128,6 +131,50 @@
     }
   }); // end of document ready
 
+  $('#money-input').on('input', function () {
+    // Get the current value of the input field
+    var value = $(this).val();
+
+    // Remove any non-numeric characters except the minus sign and dot
+    value = value.replace(/[^0-9\-\.]|(?<=\..*)\./g, '');
+
+    // Replace any double dots with a single dot
+    value = value.replace(/(\..*)\./g, '$1');
+
+    // Remove any dots before the first digit
+    value = value.replace(/^\./g, '');
+
+    // Allow only one minus sign at the beginning of the input
+    if (
+      value.indexOf('-') > 0 ||
+      (value.indexOf('-') == 0 && !/^\-?[0-9]*\.?[0-9]*$/.test(value))
+    ) {
+      value = value.replace('-', '');
+    }
+    value = value.replace(/^(\-?)[^0-9]*$/, '$1');
+
+    // Remove the minus sign if the input value is positive
+    if (parseFloat(value) >= 0) {
+      value = value.replace('-', '');
+    }
+
+    // Limit the integer part to 10 digits
+    var parts = value.split('.');
+    if (parts[0].length > 10) {
+      parts[0] = parts[0].substring(0, 10);
+      value = parts.join('.');
+    }
+
+    // Limit the decimal part to two digits
+    if (parts.length > 1) {
+      parts[1] = parts[1].substring(0, 2);
+      value = parts.join('.');
+    }
+
+    // Update the input field with the sanitized value
+    $(this).val(value);
+  });
+
   // Funcion para imprimir transacciones de deposito
   function orderAndPrintTransactions(transactions) {
     const reverseTransactions = transactions.reverse();
@@ -192,12 +239,6 @@
          </li>`);
   }
 
-  // information about the user
-  const user = JSON.parse(localStorage.getItem('user'));
-  $('#name').text(user.name);
-  // $('.no-cuenta').text(user.noAccount);
-  $('.balance-general').text(user.balance);
-
   // Logic for the login page
   $('#btn-login').click(function () {
     const userValue = $('#user-input').val();
@@ -259,101 +300,71 @@
           window.location.href = '/LIS-Desafio-1/index.php';
         });
         return;
-      }
+      },
     });
   });
 
+  // Logic for the income button
+  $('#btn-income').click(function () {
+    let depositMoneyInput = $('#money-input').val();
+    let typeInput = $('#type').val();
+    let selectTypeInput = $('#select-type').val();
+    let datePickerInput = $('#transaction-date').val();
 
-  // Button configuration for deposit and withdraw pages
-  $('#btn-add-25').click(function () {
-    if (window.location.pathname === '/deposit.html') {
-      $('#deposit-money-input').val(25);
-    }
-
-    if (window.location.pathname === '/withdraw.html') {
-      $('#withdraw-money-input').val(25);
-    }
-  });
-
-  // Button configuration for deposit and withdraw pages
-  $('#btn-add-50').click(function () {
-    if (window.location.pathname === '/deposit.html') {
-      $('#deposit-money-input').val(50);
-    }
-
-    if (window.location.pathname === '/withdraw.html') {
-      $('#withdraw-money-input').val(50);
-    }
-  });
-
-  // Button configuration for deposit and withdraw pages
-  $('#btn-add-100').click(function () {
-    if (window.location.pathname === '/deposit.html') {
-      $('#deposit-money-input').val(100);
-    }
-
-    if (window.location.pathname === '/withdraw.html') {
-      $('#withdraw-money-input').val(100);
-    }
-  });
-
-  // Button configuration for deposit and withdraw pages
-  $('#btn-add-200').click(function () {
-    if (window.location.pathname === '/deposit.html') {
-      $('#deposit-money-input').val(200);
-    }
-
-    if (window.location.pathname === '/withdraw.html') {
-      $('#withdraw-money-input').val(200);
-    }
-  });
-
-  // Function to validate money input
-  function validateMoneyInput(evt) {
-    evt = evt || window.event;
-    const charCode = evt.which || evt.keyCode;
-    const charStr = String.fromCharCode(charCode);
-    // if (charStr === '-') return false;
-    if (charStr === 'e') return false;
-    if (charStr === 'E') return false;
-  }
-
-  $('.money-input').keypress(validateMoneyInput);
-
-  // Logic for the deposit button in deposit.html
-  $('#btn-deposit').click(function () {
-    let depositMoneyInput = $('#deposit-money-input').val();
-    if (!depositMoneyInput) {
+    // Validate the input values
+    if (
+      !depositMoneyInput ||
+      !typeInput ||
+      !selectTypeInput ||
+      !datePickerInput
+    ) {
       swal(
-        'Campo vacío',
-        'El campo del monto a depositar esta vacío, por favor inténtelo de nuevo.',
+        'Campos de entrada vacíos',
+        'Uno o más campos están vacíos, por favor inténtelo de nuevo.',
         'warning'
       );
       return;
     }
 
-    depositMoneyInput = parseFloat(depositMoneyInput).toFixed(2);
+    depositMoneyInput = parseFloat(depositMoneyInput);
 
-    // Getting the user from local storage
-    const user = JSON.parse(localStorage.getItem('user'));
-    // Updating the user balance and saving it
-    const newBalance = parseFloat(user.balance) + parseFloat(depositMoneyInput);
-    user.balance = newBalance;
-    const transactionDate = new Date();
-    user.transactions.push({
-      type: 'deposit',
-      amount: parseFloat(depositMoneyInput),
-      date: transactionDate,
-    });
-    localStorage.setItem('user', JSON.stringify(user));
+    const data = {
+      amount: depositMoneyInput,
+      type: typeInput,
+      transactionType: selectTypeInput,
+      date: datePickerInput,
+    };
 
-    swal(
-      'Depósito exitoso',
-      `El depósito por la cantidad de $${depositMoneyInput} fue exitoso.`,
-      'success'
-    ).then(() => {
-      generateDepositPDF(user, depositMoneyInput, newBalance, transactionDate);
-      window.location.href = 'menu.html';
+    console.log(data);
+
+    $.ajax({
+      type: 'POST',
+      url: 'controllers/income.php',
+      data,
+      success: function (response) {
+        // Handle the response
+        console.log(response);
+
+        swal(
+          'Entrada guardada exitosamente',
+          `La entrada por la cantidad de $${depositMoneyInput} fue exitosa.`,
+          'success'
+        ).then(() => {
+          window.location.href = '/LIS-Desafio-1/menu.php';
+        });
+        return;
+      },
+      error: function (xhr, status, error) {
+        // Handle the error response
+        swal(
+          'Error al guardar la entrada',
+          'Por favor inténtelo de nuevo.',
+          'error'
+        );
+        console.log(error);
+        console.log(status);
+        console.log(xhr);
+      },
     });
   });
 
