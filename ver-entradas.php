@@ -43,7 +43,7 @@ if (!isset($_SESSION['user_id'])) {
       <div class="container">
         <div class="row" style="margin-top:80px">
           <div class="col s12">
-            <ul id="transactions" class="collection"></ul>
+            <ul id="transactions-income" class="collection"></ul>
           </div>
         </div>
       </div>
@@ -65,6 +65,7 @@ if (!isset($_SESSION['user_id'])) {
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
   <script src="js/init.js"></script>
 </body>

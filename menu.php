@@ -65,7 +65,7 @@ if (!isset($_SESSION['user_id'])) {
             <a class="btn-menu waves-effect waves-light btn-large" href="ver-salidas.php">Ver salidas</a>
           </div>
           <div class="col m6 offset-m3">
-            <a class="btn-menu waves-effect waves-light btn-large" href="services.html">Mostrar balance</a>
+            <a class="btn-menu waves-effect waves-light btn-large" href="transactions.php">Mostrar balance</a>
           </div>
         </div>
       </div>
