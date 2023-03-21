@@ -9,11 +9,11 @@ class Transaction
         $this->conn = $db;
     }
 
-    function saveTransaction($user_id, $transaction_type, $type, $amount, $transaction_date)
+    function saveTransaction($user_id, $transaction_type, $type, $amount, $transaction_date, $receipt_photo_path)
     {
-        $sql = "INSERT INTO transactions (user_id, transaction_type, type, amount, transaction_date) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO transactions (user_id, transaction_type, type, amount, transaction_date, receipt_photo_path) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$user_id, $transaction_type, $type, $amount, $transaction_date]);
+        $stmt->execute([$user_id, $transaction_type, $type, $amount, $transaction_date, $receipt_photo_path]);
         return $stmt->rowCount();
     }
 

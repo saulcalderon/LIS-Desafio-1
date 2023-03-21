@@ -55,11 +55,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
+    // check if photo is included and return the path
+    $photoPath = NULL;
+    if (isset($_FILES['photo'])) {
+
+        $target_dir = '../uploads/';
+        $target_file = $target_dir . basename($_FILES['photo']['name']);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is a actual image or fake image
+        $check = getimagesize($_FILES['photo']['tmp_name']);
+        // print_r($check);
+
+        if ($check !== false) {
+            $uploadOk = 1;
+        } else {
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            http_response_code(400);
+            $error = array('error' => 'No se pudo subir la imagen');
+            header('Content-Type: application/json');
+            echo json_encode($error);
+            exit;
+        } else {
+            if (move_uploaded_file($_FILES['photo']['tmp_name'], $target_file)) {
+                $photoPath = $target_file;
+            } else {
+                http_response_code(400);
+                $error = array('error' => 'No se pudo subir la imagen' . $target_file);
+                header('Content-Type: application/json');
+                echo json_encode($error);
+                exit;
+            }
+        }
+    }
+
     // get the user id from the session
     $user_id = $_SESSION['user_id'];
 
     // call the create transaction method on the Transaction object
-    $stmt = $transaction->saveTransaction($user_id, $transaction_type, $type, $amount, $transaction_date);
+    $stmt = $transaction->saveTransaction($user_id, $transaction_type, $type, $amount, $transaction_date, $photoPath);
 
     if ($stmt) {
         http_response_code(200);

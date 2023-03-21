@@ -182,7 +182,11 @@
       success: function (response) {
         console.log(response);
         for (const transaction of response) {
-          printIncomeTransaction(transaction.type, transaction.date, transaction.amount);
+          printIncomeTransaction(
+            transaction.type,
+            transaction.date,
+            transaction.amount
+          );
         }
       },
       error: function (error) {
@@ -284,11 +288,14 @@
   });
 
   // Logic for the transaction button
-  $('#btn-transaction').click(function () {
+  $('#btn-transaction').click(function (event) {
+    event.preventDefault();
+
     let depositMoneyInput = $('#money-input').val();
     let typeInput = $('#type').val();
     let selectTypeInput = $('#select-type').val();
     let datePickerInput = $('#transaction-date').val();
+    let fileData = $('#photo-input').prop('files')[0];
 
     // Validate the input values
     if (
@@ -307,16 +314,23 @@
 
     depositMoneyInput = parseFloat(depositMoneyInput);
 
-    const data = {
-      amount: depositMoneyInput,
-      type: typeInput,
-      transactionType: selectTypeInput,
-      date: datePickerInput,
-    };
+    const formData = new FormData();
+    formData.append('amount', depositMoneyInput);
+    formData.append('type', typeInput);
+    formData.append('transactionType', selectTypeInput);
+    formData.append('date', datePickerInput);
 
-    console.log(data);
+    if (fileData) {
+    formData.append('photo', fileData);
+    }
 
-    const pageLocationMessage = null;
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+
+    console.log(formData);
+
+    let pageLocationMessage = null;
     const isIncomePage =
       window.location.pathname === '/LIS-Desafio-1/registrar-entradas.php';
 
@@ -329,11 +343,14 @@
     $.ajax({
       type: 'POST',
       url: 'controllers/transaction.php',
-      data,
+      processData: false,
+      contentType: false,
+      cache: false,
+      data: formData,
+      enctype: 'multipart/form-data',
       success: function (response) {
         // Handle the response
         console.log(response);
-
         swal(
           `${pageLocationMessage} guardada exitosamente`,
           `La ${pageLocationMessage} por la cantidad de $${depositMoneyInput} fue exitosa.`,
@@ -480,158 +497,158 @@
   });
 
   // Logic for adding only income transactions to the table in transactions.html
-  $('#transaction-income').click(function () {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const transactions = user.transactions;
+  // $('#transaction-income').click(function () {
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   const transactions = user.transactions;
 
-    // Clearing the table
-    $('#transactions').empty();
+  //   // Clearing the table
+  //   $('#transactions').empty();
 
-    // Adding the transactions to the table
-    const incomeTransactions = transactions.filter(
-      (transaction) => transaction.type === 'deposit'
-    );
-    orderAndPrintTransactions(incomeTransactions);
-  });
+  //   // Adding the transactions to the table
+  //   const incomeTransactions = transactions.filter(
+  //     (transaction) => transaction.type === 'deposit'
+  //   );
+  //   orderAndPrintTransactions(incomeTransactions);
+  // });
 
   // Logic for adding only expenses transactions to the table in transactions.html
-  $('#transaction-expense').click(function () {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const transactions = user.transactions;
+  // $('#transaction-expense').click(function () {
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   const transactions = user.transactions;
 
-    // Clearing the table
-    $('#transactions').empty();
+  //   // Clearing the table
+  //   $('#transactions').empty();
 
-    // Adding the transactions to the table
-    const expenseTransactions = transactions.filter(
-      (transaction) =>
-        transaction.type === 'withdraw' || transaction.type === 'service'
-    );
-    orderAndPrintTransactions(expenseTransactions);
-  });
+  //   // Adding the transactions to the table
+  //   const expenseTransactions = transactions.filter(
+  //     (transaction) =>
+  //       transaction.type === 'withdraw' || transaction.type === 'service'
+  //   );
+  //   orderAndPrintTransactions(expenseTransactions);
+  // });
 
   // Generate PDF for transactions
-  function generateDepositPDF(
-    user,
-    depositMoneyInput,
-    newBalance,
-    transactionDate
-  ) {
-    const doc = new jsPDF();
-    doc.setFontSize(36);
-    doc.setFontStyle('bold');
-    doc.text('Pokemon Bank', 55, 30, { align: 'center' });
+  // function generateDepositPDF(
+  //   user,
+  //   depositMoneyInput,
+  //   newBalance,
+  //   transactionDate
+  // ) {
+  //   const doc = new jsPDF();
+  //   doc.setFontSize(36);
+  //   doc.setFontStyle('bold');
+  //   doc.text('Pokemon Bank', 55, 30, { align: 'center' });
 
-    doc.setFontSize(18);
-    doc.setFontStyle('normal');
-    doc.text('Depósito exitoso', 65, 50, { align: 'center' });
-    doc.text(`Nombre: ${user.name}`, 65, 70, {
-      align: 'center',
-    });
-    doc.text(`Número de cuenta: ${user.noAccount}`, 65, 80, {
-      align: 'center',
-    });
-    doc.text(`Cantidad depósitada: $${depositMoneyInput}`, 65, 100, {
-      align: 'center',
-    });
-    doc.text(`Nuevo balance: $${newBalance}`, 65, 110, {
-      align: 'center',
-    });
-    doc.text(
-      `Fecha y hora: ${getDateHoursAndMinutes(transactionDate.toISOString())}`,
-      65,
-      120,
-      {
-        align: 'center',
-      }
-    );
+  //   doc.setFontSize(18);
+  //   doc.setFontStyle('normal');
+  //   doc.text('Depósito exitoso', 65, 50, { align: 'center' });
+  //   doc.text(`Nombre: ${user.name}`, 65, 70, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Número de cuenta: ${user.noAccount}`, 65, 80, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Cantidad depósitada: $${depositMoneyInput}`, 65, 100, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Nuevo balance: $${newBalance}`, 65, 110, {
+  //     align: 'center',
+  //   });
+  //   doc.text(
+  //     `Fecha y hora: ${getDateHoursAndMinutes(transactionDate.toISOString())}`,
+  //     65,
+  //     120,
+  //     {
+  //       align: 'center',
+  //     }
+  //   );
 
-    doc.save(`PB - Deposito - ${new Date().toISOString().split('T')[0]}.pdf`);
-  }
+  //   doc.save(`PB - Deposito - ${new Date().toISOString().split('T')[0]}.pdf`);
+  // }
 
-  function generateWithdrawPDF(
-    user,
-    withdrawMoneyInput,
-    newBalance,
-    transactionDate
-  ) {
-    const doc = new jsPDF();
-    doc.setFontSize(36);
-    doc.setFontStyle('bold');
-    doc.text('Pokemon Bank', 55, 30, { align: 'center' });
+  // function generateWithdrawPDF(
+  //   user,
+  //   withdrawMoneyInput,
+  //   newBalance,
+  //   transactionDate
+  // ) {
+  //   const doc = new jsPDF();
+  //   doc.setFontSize(36);
+  //   doc.setFontStyle('bold');
+  //   doc.text('Pokemon Bank', 55, 30, { align: 'center' });
 
-    doc.setFontSize(18);
-    doc.setFontStyle('normal');
-    doc.text('Retiro exitoso', 65, 50, { align: 'center' });
-    doc.text(`Nombre: ${user.name}`, 65, 70, {
-      align: 'center',
-    });
-    doc.text(`Número de cuenta: ${user.noAccount}`, 65, 80, {
-      align: 'center',
-    });
-    doc.text(`Cantidad retirada: $${withdrawMoneyInput}`, 65, 100, {
-      align: 'center',
-    });
-    doc.text(`Nuevo balance: $${newBalance}`, 65, 110, {
-      align: 'center',
-    });
-    doc.text(
-      `Fecha y hora: ${getDateHoursAndMinutes(transactionDate.toISOString())}`,
-      65,
-      120,
-      {
-        align: 'center',
-      }
-    );
+  //   doc.setFontSize(18);
+  //   doc.setFontStyle('normal');
+  //   doc.text('Retiro exitoso', 65, 50, { align: 'center' });
+  //   doc.text(`Nombre: ${user.name}`, 65, 70, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Número de cuenta: ${user.noAccount}`, 65, 80, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Cantidad retirada: $${withdrawMoneyInput}`, 65, 100, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Nuevo balance: $${newBalance}`, 65, 110, {
+  //     align: 'center',
+  //   });
+  //   doc.text(
+  //     `Fecha y hora: ${getDateHoursAndMinutes(transactionDate.toISOString())}`,
+  //     65,
+  //     120,
+  //     {
+  //       align: 'center',
+  //     }
+  //   );
 
-    doc.save(`PB - Retiro - ${new Date().toISOString().split('T')[0]}.pdf`);
-  }
+  //   doc.save(`PB - Retiro - ${new Date().toISOString().split('T')[0]}.pdf`);
+  // }
 
-  function generateServicePDF(
-    user,
-    category,
-    noBill,
-    amount,
-    newBalance,
-    transactionDate
-  ) {
-    const doc = new jsPDF();
-    doc.setFontSize(36);
-    doc.setFontStyle('bold');
-    doc.text('Pokemon Bank', 55, 30, { align: 'center' });
+  // function generateServicePDF(
+  //   user,
+  //   category,
+  //   noBill,
+  //   amount,
+  //   newBalance,
+  //   transactionDate
+  // ) {
+  //   const doc = new jsPDF();
+  //   doc.setFontSize(36);
+  //   doc.setFontStyle('bold');
+  //   doc.text('Pokemon Bank', 55, 30, { align: 'center' });
 
-    doc.setFontSize(18);
-    doc.setFontStyle('normal');
-    doc.text('Pago de servicio exitoso', 65, 50, { align: 'center' });
-    doc.text(`Nombre: ${user.name}`, 65, 70, {
-      align: 'center',
-    });
-    doc.text(`Número de cuenta: ${user.noAccount}`, 65, 80, {
-      align: 'center',
-    });
-    doc.text(`Categoría de servicio a pagar: ${category}`, 65, 100, {
-      align: 'center',
-    });
-    doc.text(`Número de factura: ${noBill}`, 65, 110, {
-      align: 'center',
-    });
-    doc.text(`Cargo: $${amount}`, 65, 120, {
-      align: 'center',
-    });
-    doc.text(`Nuevo balance: $${newBalance}`, 65, 130, {
-      align: 'center',
-    });
-    doc.text(
-      `Fecha y hora: ${getDateHoursAndMinutes(transactionDate.toISOString())}`,
-      65,
-      140,
-      {
-        align: 'center',
-      }
-    );
+  //   doc.setFontSize(18);
+  //   doc.setFontStyle('normal');
+  //   doc.text('Pago de servicio exitoso', 65, 50, { align: 'center' });
+  //   doc.text(`Nombre: ${user.name}`, 65, 70, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Número de cuenta: ${user.noAccount}`, 65, 80, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Categoría de servicio a pagar: ${category}`, 65, 100, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Número de factura: ${noBill}`, 65, 110, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Cargo: $${amount}`, 65, 120, {
+  //     align: 'center',
+  //   });
+  //   doc.text(`Nuevo balance: $${newBalance}`, 65, 130, {
+  //     align: 'center',
+  //   });
+  //   doc.text(
+  //     `Fecha y hora: ${getDateHoursAndMinutes(transactionDate.toISOString())}`,
+  //     65,
+  //     140,
+  //     {
+  //       align: 'center',
+  //     }
+  //   );
 
-    doc.save(
-      `PB - Pago servicio - ${new Date().toISOString().split('T')[0]}.pdf`
-    );
-  }
+  //   doc.save(
+  //     `PB - Pago servicio - ${new Date().toISOString().split('T')[0]}.pdf`
+  //   );
+  // }
 })(jQuery); // end of jQuery name space

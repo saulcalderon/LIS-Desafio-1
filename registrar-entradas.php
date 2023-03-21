@@ -63,6 +63,15 @@ if (!isset($_SESSION['user_id'])) {
             <input id="transaction-date" type="text" class="datepicker white-text">
             <label class="white-text" for="transaction-date">Fecha transacción</label>
           </div>
+          <div class="file-field input-field col m6 offset-m3">
+            <div class="btn">
+              <span>Adjuntar foto</span>
+              <input id="photo-input" type="file" accept="image/*">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate white-text" type="text">
+            </div>
+          </div>
           <div class="row">
             <div class="col m6 offset-m3">
               <a id="btn-transaction" class="btn-menu waves-effect waves-light btn-large">Agregar entrada</a>
@@ -85,7 +94,7 @@ if (!isset($_SESSION['user_id'])) {
     </footer>
 
     <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/jspdf.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
