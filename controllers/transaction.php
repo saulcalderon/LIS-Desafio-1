@@ -140,7 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['type'] == 'income') {
             'transactionType' => $row['transaction_type'],
             'type' => $row['type'],
             'amount' => $row['amount'],
-            'date' => $row['transaction_date']
+            'date' => $row['transaction_date'],
+            'photoUrl' => $row['receipt_photo_path']
         );
     }
 
@@ -175,7 +176,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['type'] == 'outcome') {
             'transactionType' => $row['transaction_type'],
             'type' => $row['type'],
             'amount' => $row['amount'],
-            'date' => $row['transaction_date']
+            'date' => $row['transaction_date'],
+            'photoUrl' => $row['receipt_photo_path']
         );
     }
 

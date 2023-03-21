@@ -53,6 +53,17 @@ if (!isset($_SESSION['user_id'])) {
     </div>
   </div>
 
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Recibo</h5>
+      <div id="image-container" style="display:flex;justify-content:space-around;"></div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Salir</a>
+    </div>
+  </div>
+
   <footer class="page-footer teal">
     <div class="footer-copyright">
       <div class="container">

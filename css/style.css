@@ -38,6 +38,12 @@ canvas {
   color: #fff;
 }
 
+.justify-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #bc-image {
   filter: blur(20px);
 }

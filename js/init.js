@@ -1,3 +1,10 @@
+function printImage(photoUrl) {
+  // // append the image to img tag
+  $('#image-container').html(
+    "<img width='400' src='/LIS-Desafio-1/" + photoUrl + "' />"
+  );
+}
+
 (function ($) {
   $(function () {
     $('.sidenav').sidenav();
@@ -6,6 +13,7 @@
     $('.datepicker').datepicker({
       format: 'yyyy-mm-dd',
     });
+    $('.modal').modal();
 
     // Impresion de los datos del usuario en el DOM
     if (localStorage.getItem('user')) {
@@ -168,7 +176,8 @@
             printIncomeTransaction(
               transaction.type,
               transaction.date,
-              transaction.amount
+              transaction.amount,
+              transaction.photoUrl
             );
           }
           resolve(transactions);
@@ -195,7 +204,8 @@
             printOutcomeTransaction(
               transaction.type,
               transaction.date,
-              transaction.amount
+              transaction.amount,
+              transaction.photoUrl
             );
           }
           resolve(transactions);
@@ -209,18 +219,36 @@
   }
 
   // Funcion para imprimir transacciones de entrada
-  function printIncomeTransaction(type, date, amount) {
-    $('#transactions-income').append(`<li class="collection-item avatar">
+  function printIncomeTransaction(type, date, amount, hasPhoto) {
+    let photoTag = '';
+    if (hasPhoto) {
+      // remove ../ from the path
+      hasPhoto = hasPhoto.replace(/\.\.\//g, '');
+      photoTag = `<a id="show-image" href="#modal1" class="waves-effect waves-light btn modal-trigger" onclick="printImage('${hasPhoto}')">Ver foto</a>`;
+    }
+
+    $('#transactions-income')
+      .append(`<li class="collection-item avatar justify-space-between">
            <i class="material-icons circle green">add</i>
-           <span class="title black-text" style="word-spacing:1em;">${type}  |  ${date}  |  $${amount}</span>
+           <span class="title black-text" style="word-spacing:1em;">${type}  |  ${date}  |  $${amount}</span>  
+            ${photoTag}
          </li>`);
   }
 
   // Funcion para imprimir transacciones de salida
-  function printOutcomeTransaction(type, date, amount) {
-    $('#transactions-outcome').append(`<li class="collection-item avatar">
+  function printOutcomeTransaction(type, date, amount, hasPhoto) {
+    let photoTag = '';
+    if (hasPhoto) {
+      // remove ../ from the path
+      hasPhoto = hasPhoto.replace(/\.\.\//g, '');
+      photoTag = `<a id="show-image" href="#modal1" class="waves-effect waves-light btn modal-trigger" onclick="printImage('${hasPhoto}')">Ver foto</a>`;
+    }
+
+    $('#transactions-outcome')
+      .append(`<li class="collection-item avatar justify-space-between">
            <i class="material-icons circle red">remove</i>
            <span class="title black-text" style="word-spacing:1em;">${type}  |  ${date}  |  $${amount}</span>
+           ${photoTag}
          </li>`);
   }
 
