@@ -25,7 +25,7 @@ class Transaction
         return $stmt->fetchAll();
     }
 
-    function getExpensesRecordsByUserId($user_id)
+    function getOutcomeRecordsByUserId($user_id)
     {
         $sql = "SELECT * FROM transactions WHERE user_id = ? AND transaction_type = 'salida' ORDER BY transaction_date DESC";
         $stmt = $this->conn->prepare($sql);

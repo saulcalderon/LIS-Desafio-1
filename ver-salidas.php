@@ -39,7 +39,7 @@ if (!isset($_SESSION['user_id'])) {
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <a class="btn-back" href="menu.php"><i class="material-icons medium">arrow_back</i></a>
-      <h1 class="center">Ver entradas</h1>
+      <h1 class="center">Ver salidas</h1>
       <div class="container">
         <div class="row" style="margin-top:80px">
           <div class="col s12">

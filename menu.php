@@ -62,7 +62,7 @@ if (!isset($_SESSION['user_id'])) {
             <a class="btn-menu waves-effect waves-light btn-large" href="registrar-salidas.php">Registrar salida</a>
           </div>
           <div class="col s12 m6">
-            <a class="btn-menu waves-effect waves-light btn-large" href="services.html">Ver salidas</a>
+            <a class="btn-menu waves-effect waves-light btn-large" href="ver-salidas.php">Ver salidas</a>
           </div>
           <div class="col m6 offset-m3">
             <a class="btn-menu waves-effect waves-light btn-large" href="services.html">Mostrar balance</a>

@@ -129,6 +129,10 @@
       // Creating the table with the transactions
       getIncomeTransactions();
     }
+
+    if (window.location.pathname === '/LIS-Desafio-1/ver-salidas.php') {
+      getOutcomeTransactions();
+    }
   }); // end of document ready
 
   $('#money-input').on('input', function () {
@@ -195,6 +199,27 @@
     });
   }
 
+  function getOutcomeTransactions() {
+    // Get the transactions from the database
+    $.ajax({
+      url: 'controllers/transaction.php?type=outcome',
+      type: 'GET',
+      success: function (response) {
+        console.log(response);
+        for (const transaction of response) {
+          printOutcomeTransaction(
+            transaction.type,
+            transaction.date,
+            transaction.amount
+          );
+        }
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  }
+
   // Funcion para imprimir transacciones de entrada
   function printIncomeTransaction(type, date, amount) {
     $('#transactions').append(`<li class="collection-item avatar">
@@ -203,15 +228,14 @@
          </li>`);
   }
 
-  // Funcion para imprimir transacciones de retiro
-  function printWithdrawTransaction(date, amount) {
+  // Funcion para imprimir transacciones de salida
+  function printOutcomeTransaction(type, date, amount) {
     $('#transactions').append(`<li class="collection-item avatar">
            <i class="material-icons circle red">remove</i>
-           <span class="title black-text">Retiro | ${getDateHoursAndMinutes(
-             date
-           )} | $${amount}</span>
+           <span class="title black-text" style="word-spacing:1em;">${type}  |  ${date}  |  $${amount}</span>
          </li>`);
   }
+
   // Funcion para imprimir transacciones de servicio
   function printServiceTransaction(category, date, amount) {
     $('#transactions').append(`<li class="collection-item avatar">
@@ -321,7 +345,7 @@
     formData.append('date', datePickerInput);
 
     if (fileData) {
-    formData.append('photo', fileData);
+      formData.append('photo', fileData);
     }
 
     for (const value of formData.values()) {
