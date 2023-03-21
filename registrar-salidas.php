@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+// check if user is already logged in
+if (!isset($_SESSION['user_id'])) {
+  header("Location: index.php");
+  exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,6 +63,15 @@
             <input id="transaction-date" type="text" class="datepicker white-text">
             <label class="white-text" for="transaction-date">Fecha transacción</label>
           </div>
+          <div class="file-field input-field col m6 offset-m3">
+            <div class="btn">
+              <span>Adjuntar foto</span>
+              <input id="photo-input" type="file" accept="image/*">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate white-text" type="text">
+            </div>
+          </div>
           <div class="row">
             <div class="col m6 offset-m3">
               <a id="btn-transaction" class="btn-menu waves-effect waves-light btn-large">Agregar salida</a>
@@ -59,12 +79,11 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="parallax">
-      <img id="bc-image" src="background4.jpg" alt="" />
+      <div class="parallax">
+        <img id="bc-image" src="background4.jpg" alt="" />
+      </div>
     </div>
   </div>
-
   <footer class="page-footer teal">
     <div class="footer-copyright">
       <div class="container">
@@ -75,11 +94,11 @@
   </footer>
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/jspdf.min.js"></script>
-  <script src="js/init.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="js/init.js"></script>
 </body>
 
 </html>

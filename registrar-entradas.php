@@ -83,22 +83,22 @@ if (!isset($_SESSION['user_id'])) {
         <img id="bc-image" src="background4.jpg" alt="" />
       </div>
     </div>
-
-    <footer class="page-footer teal">
-      <div class="footer-copyright">
-        <div class="container">
-          <a class="brown-text text-lighten-3">Mis Finanzas ©</a> Copyright 2022
-          - LIS
-        </div>
+  </div>
+  <footer class="page-footer teal">
+    <div class="footer-copyright">
+      <div class="container">
+        <a class="brown-text text-lighten-3">Mis Finanzas ©</a> Copyright 2022
+        - LIS
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script src="js/materialize.js"></script>
-    <script src="js/jspdf.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="js/init.js"></script>
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/jspdf.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="js/init.js"></script>
 </body>
 
 </html>
